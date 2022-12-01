@@ -1,6 +1,6 @@
 .panierButton{
     position: fixed;
-    bottom: 10px;
+    top: 13px;
     right: 13px;
     padding: 11px 12px;
     border-radius: 100%;
@@ -14,6 +14,7 @@
     width: max-content;
     @media screen and (max-width : 1000px){
         bottom: 55px;
+        top: auto;
         left: 7px;
         z-index: 11;
     }

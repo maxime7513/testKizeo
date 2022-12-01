@@ -21,7 +21,9 @@ li{
     }
     div{
         display: flex;
+        justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
         &:first-of-type{
             span{
                 width: 20px;
@@ -60,7 +62,7 @@ li{
                 margin: 0 10px;
                 color: var(--dark-primary);
                 @media screen and (max-width : 600px){
-                    margin: 0 0 0 5px;
+                    margin: 5px 0 5px 5px;
                 }
             }
         }
