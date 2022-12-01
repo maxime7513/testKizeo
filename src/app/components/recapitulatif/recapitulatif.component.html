@@ -1,0 +1,19 @@
+<ng-container *ngIf="products | async as product">
+<ul *ngIf="product.length !== 0; else empty">
+    <li *ngFor="let product of product">
+        <div>
+            <span>{{product.quantity}}x</span>
+            <img src="./assets/img/produits/{{product.img}}.png" [alt]="product.title">
+            <p>{{product.title}}</p>
+        </div>
+        <div>
+            <button (click)="removeProduct(product)">-</button>
+            <button (click)="addProduct(product)">+</button>
+            <span>{{(product.price * product.quantity!) | currency:'EUR':'symbol':'1.2-2':'fr'}}</span>
+        </div>
+    </li>
+</ul>
+<ng-template #empty>
+    <p class="empty">Votre panier est vide ...</p>
+</ng-template>
+</ng-container>

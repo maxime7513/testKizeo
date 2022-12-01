@@ -1,0 +1,84 @@
+section{
+    padding: 20px;
+    width: 100%;
+    @media screen and (max-width : 1000px){
+        padding: 20px 0 70px;
+    }
+    &.responsiveWidth{
+        width: calc(100% - 385px);
+    }
+    >div{
+        &:first-of-type{
+            @media screen and (max-width : 900px){
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            mat-select{
+                width: 16px;
+            }
+        }
+        &:last-of-type{
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+    }
+    app-card-product{
+        max-width: 200px;
+        margin: 20px 15px;
+        @media screen and (max-width : 460px){
+            max-width: 150px;
+            min-height: 170px;
+            margin: 15px 10px;
+        }
+    }
+}
+
+.choseCategory{
+    display: flex;
+    flex-direction: row;
+    background: #fafafa;
+    background: var(--light-primary);
+    border-radius: 50px;
+    width: max-content;
+    margin: 10px 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 20px 20px -5px;
+    div{
+        display: flex;
+        align-items: center;
+        color: var(--dark-primary);
+        padding: 10px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: .2s;
+        text-transform: capitalize;
+        @media screen and (max-width : 900px){
+            display: none;
+        }
+        &.active{
+            display: flex;
+            background: var(--dark-primary);
+            color: #fafafa;
+            font-weight: 500;
+        }
+        img{
+            height: 22px;
+            margin-right: 5px;
+        }
+    }
+}
+
+::ng-deep {
+    .mat-select-arrow{
+        color: var(--color-primary);
+        width: 16px !important;
+        height: 16px !important;
+        margin: 0 !important;
+        border-left: 8px solid rgba(0,0,0,0) !important;
+        border-right: 8px solid rgba(0,0,0,0) !important;
+        border-top: 8px solid !important;
+    }
+}

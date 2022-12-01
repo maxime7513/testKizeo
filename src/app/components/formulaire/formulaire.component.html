@@ -1,0 +1,54 @@
+<form [formGroup]="contactForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="nom" type="text">
+            <mat-error *ngIf="formSend && nom.hasError('required')">
+                Nom obligatoire
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="prenom" type="text">
+            <mat-error *ngIf="formSend && prenom.hasError('required')">
+                Prénom obligatoire
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Téléphone</mat-label>
+            <input matInput formControlName="phone" type="text">
+            <mat-error *ngIf="formSend && phone.hasError('required')">
+                Numéro de téléphone obligatoire
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="text">
+            <mat-error *ngIf="formSend && email.hasError('email') && !email.hasError('required')">
+                Merci de renseignez une adresse mail valide
+            </mat-error>
+            <mat-error *ngIf="formSend && email.hasError('required')">
+                Email obligatoire
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <mat-label>Adresse</mat-label>
+            <input matInput formControlName="adresse" type="text">
+            <mat-error *ngIf="formSend && adresse.hasError('required')">
+                Adresse obligatoire
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Code postal</mat-label>
+            <input matInput formControlName="codePostal" type="text">
+            <mat-error *ngIf="formSend && codePostal.hasError('required')">
+                Code postal obligatoire
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>

@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+
+$custom-palette: (
+    50 : #eeeefe,
+    100 : #d4d4fc,
+    200 : #b7b7fa,
+    300 : #9a9af8,
+    400 : #8585f7,
+    500 : #6f6ff5,
+    600 : #6767f4,
+    700 : #5c5cf2,
+    800 : #5252f0,
+    900 : #4040ee,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #d7d7ff,
+    A700 : #bebeff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$custom-primary: mat.define-palette($custom-palette, 500, 300, 700);
+// The warn palette is optional (defaults to red).
+$testKizeo-warn: mat.define-palette(mat.$red-palette);
+$testKizeo-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-primary,
+    warn: $testKizeo-warn,
+  )
+));
+
+@include mat.all-component-themes($testKizeo-theme);
+
+@import '~reset.css';
+@import '~normalize.css';
+
+:root {
+  --color-primary: #6F6FF5;
+  --light-primary: rgba(111, 111, 245,.07);
+  --dark-primary: #2a2e43;
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+  background: #ffffff;
+}
+
+// mat-toggle button
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+  line-height: normal;
+  padding: 5px 10px !important;
+  font-size: 15px;
+}

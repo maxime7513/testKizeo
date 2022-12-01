@@ -1,0 +1,91 @@
+<button matBadge="{{quantity$ | async}}" matBadgePosition="before" matBadgeColor="accent" class="panierButton" [ngClass]="{'hide':showPanier$ | async}" (click)="openPanier()">
+    <img src="./assets/img/bag.png" alt="panier">
+</button>
+
+<div class="content" [class.active]="showPanier$ | async">
+    <div>
+        <h2>Votre commande</h2>
+        <img src="./assets/img/close.svg" alt="fermer" (click)="closePanier()">
+    </div>
+
+    <div id="autoscroll">
+        <ng-container *ngIf="panier$ | async as panier">
+            <ul *ngIf="panier.length !== 0; else empty">
+                <li *ngFor="let article of panier$ | async">
+                    <div>
+                        <div>
+                            <img src="./assets/img/produits/{{article.img}}.png" [alt]="article.title">
+                        </div>
+                        <div>
+                            <p>{{article.title}}</p>
+                            <p>{{(article.price * article.quantity!) | currency:'EUR':'symbol':'1.2-2':'fr'}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button (click)="removeProduct(article)">-</button>
+                        <span>{{article.quantity}}</span>
+                        <button (click)="addProduct(article)">+</button>
+                    </div>
+                </li>
+            </ul>
+        
+            <ng-template #empty>
+                <p class="empty">Votre panier est vide ...</p>
+            </ng-template>
+        </ng-container>
+        <div>
+            <div>
+                <div>
+                    <img src="./assets/img/calendar.svg" alt="repeat">
+                    <p>Quel jour souhaitez-vous être livré?</p>
+                </div>
+                <div>
+                    <mat-checkbox [(ngModel)]="samedi" (change)="dateChange()">{{nextSamedi | date: 'EEEE dd/MM'}}</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="dimanche" (change)="dateChange()">{{nextDimanche | date: 'EEEE dd/MM'}}</mat-checkbox>
+                </div>
+                <mat-error *ngIf="formSend && !samedi && !dimanche">
+                    Merci de choisir au moins un jour de livraison
+                </mat-error>
+            </div>
+            <div>
+                <div>
+                    <img src="./assets/img/clock.svg" alt="repeat">
+                    <p>A quelle heure souhaitez-vous être livré?</p>
+                </div>
+                <mat-button-toggle-group [(ngModel)]="hourSelect" (ngModelChange)="hourChange()">
+                    <mat-button-toggle *ngFor="let hour of hours" [value]="hour.value">{{hour.viewValue}}</mat-button-toggle>
+                </mat-button-toggle-group >
+                <mat-error *ngIf="formSend && !hourSelect">
+                    Merci de choisir une heure de livraison
+                </mat-error>
+            </div>
+            <div>
+                <div>
+                    <img src="./assets/img/calendar_repeat.svg" alt="repeat">
+                    <p>Souhaitez vous programmer la livraison de cette commande sur plusieurs semaines?</p>
+                </div>
+                <mat-radio-group [(ngModel)]="recurrence" (ngModelChange)="dateChange()">
+                    <mat-radio-button [value]=true>Oui</mat-radio-button>
+                    <mat-radio-button [value]=false>Non</mat-radio-button>
+                </mat-radio-group>
+                
+                <mat-form-field *ngIf="recurrence" id="recurrence">
+                    <mat-label>Choisir le nombre de semaines</mat-label>
+                    <mat-select [(ngModel)]="weekReccurenceSelect" (selectionChange)="dateChange()">
+                      <mat-option *ngFor="let semaine of semaines" [value]="semaine.value">
+                        {{semaine.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="formSend && recurrence && (!weekReccurenceSelect || weekReccurenceSelect === 1)">
+                    Merci de choisir le nombre de semaine de récurrence
+                </mat-error>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer" [class.active]="(showPanier$ | async) || 1000 >= getScreenWidth">
+    <p>Total :<span>{{(pricePanier$ | async) | currency:'EUR':'symbol':'1.2-2':'fr'}}</span></p>
+    <button (click)="send()">Commander</button>
+</div>

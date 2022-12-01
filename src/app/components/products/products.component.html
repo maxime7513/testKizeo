@@ -1,0 +1,18 @@
+<section [ngClass]="{'responsiveWidth': (panierOpen$ | async) && getScreenWidth > 1000}">
+    <div>
+        <mat-select *ngIf="900 >= getScreenWidth" #mySelect [(ngModel)]="selectCategory" (selectionChange)="changeCategorie(selectCategory)">
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{category}}
+            </mat-option>
+        </mat-select>
+        <div class="choseCategory">
+            <div *ngFor="let category of categories" [class.active]="selectCategory == category" (click)="changeCategorie(category)">
+                <img src="./assets/img/categories/{{category}}.svg" [alt]="category">
+                <span>{{category}}</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <app-card-product *ngFor="let product of selectProducts" [product]="product"></app-card-product>
+    </div>
+</section>

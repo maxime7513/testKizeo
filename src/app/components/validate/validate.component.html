@@ -1,0 +1,42 @@
+<section>
+    <div>
+        <button (click)="back()"><img src="./assets/img/arrow_back.svg" alt="retour">Etape précedente</button>
+        
+        <div class="tracking">
+            <div class="active">
+                <h2>Votre commande</h2>
+                <span></span>
+            </div>
+            <div [ngClass]="{'encours': !etape2, 'active': etape2}">
+                <h2>Récapitulatif panier</h2>
+                <span></span>
+            </div>
+            <div [ngClass]="{'encours': etape2}">
+                <h2>Informations livraison</h2>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <div class="header">
+            <div [class.active]="!etape2">
+                <img src="./assets/img/panier.svg" alt="1" (click)="etape2 = false">
+                <h2 *ngIf="!etape2">Récapitulatif panier</h2>
+            </div>
+            <div [class.active]="etape2">
+                <img src="./assets/img/bike.svg" alt="2" (click)="changeEtape()">
+                <h2 *ngIf="etape2">Informations livraison</h2>
+            </div>
+        </div>
+
+        <app-recapitulatif *ngIf="!etape2" [products]="panier$"></app-recapitulatif>
+        <app-formulaire *ngIf="etape2" #form></app-formulaire>
+
+        <div class="footer">
+            <p>Total:<span>{{(pricePanier$ | async) | currency:'EUR':'symbol':'1.2-2':'fr'}}</span></p>
+            <button *ngIf="!etape2" (click)="changeEtape()">Etape suivante</button>
+            <button *ngIf="etape2" (click)="submit()">Valider ma commande</button>
+        </div>
+    </div>
+</section>
